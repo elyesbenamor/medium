@@ -1,6 +1,6 @@
 
 module "vault" {
-  source = "./helmCharts"
+  source = "./modules/helmCharts"
   release_name       = "vault"
 
   repository = "https://helm.releases.hashicorp.com"
@@ -39,13 +39,13 @@ module "vault" {
 }
 
 module "vader_vault_secrets" {
-  source = "./vault"
+  source = "./modules/vault"
   path   = "vader"
   secrets = var.vader_secrets
   
 }
 module "skywalker_vault_secrets" {
-  source = "./vault"
+  source = "./modules/vault"
   path   = "skywalker"
   secrets = var.skywalker_secrets
 }

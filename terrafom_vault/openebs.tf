@@ -1,6 +1,6 @@
 
 module "openebs" {
-  source = "./helmCharts"
+  source = "./modules/helmCharts"
   release_name       = "openebs"
 
   repository = "https://openebs.github.io/charts"
