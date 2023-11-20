@@ -15,4 +15,6 @@ resource "helm_release" "helm_chart" {
       value = set.value.value
     }
   }
+  
+  values = var.values
 }

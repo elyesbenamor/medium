@@ -1,0 +1,33 @@
+
+
+server:
+  standalone:
+    enabled: true
+    config: |
+      disable_mlock = true
+      ui=true
+
+      storage "file" {
+        path = "/vault/data"
+      }
+
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+        # Enable unauthenticated metrics access (necessary for Prometheus Operator)
+        #telemetry {
+        #  unauthenticated_metrics_access = "true"
+        #}
+      }
+      seal "transit" {
+        address = "http://vault-2-internal.vault-2.svc.cluster.local:8200"
+        token = "hvs.CAESIF2XVOdUWwg6wcfG8uCebjYCT0Q6OLnvQb6FSDZzql-SGh4KHGh2cy53WEFobk5UM1JYVVYyRXlsdjJKT1NsbUY"
+        disable_renewal = "false"
+        key_name = "transit"
+        mount_path = "transit/"
+        tls_skip_verify = "true"
+      }
+
+
+

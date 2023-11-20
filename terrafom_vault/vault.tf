@@ -1,8 +1,9 @@
 
 module "vault" {
+
   source = "./modules/helmCharts"
   release_name       = "vault"
-
+  values = [ "${file("./policies/values.yaml")}" ]
   repository = "https://helm.releases.hashicorp.com"
   chart      = "vault"
   release_version    = "0.27.0"
@@ -34,6 +35,7 @@ module "vault" {
       name  = "server.auditStorage.enabled"
       value = "false"
     }
+    
   ]
   depends_on = [module.openebs]
 }
@@ -42,10 +44,16 @@ module "vader_vault_secrets" {
   source = "./modules/vault"
   path   = "vader"
   secrets = var.vader_secrets
+  providers = {
+        vault = vault.vault
+  }
   
 }
 module "skywalker_vault_secrets" {
   source = "./modules/vault"
   path   = "skywalker"
   secrets = var.skywalker_secrets
+  providers = {
+        vault = vault.vault
+  }
 }

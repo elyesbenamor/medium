@@ -2,12 +2,18 @@ module "mando_policy" {
   source = "./modules/policies"
   policy_name   = "mando"
   file_name = file("policies/mandalorian.hcl")
+  providers = {
+        vault = vault.vault
+  }
 }
 
 module "mando_group_policy" {
   source = "./modules/policies"
   policy_name   = "Group_mando"
   file_name = file("policies/mando-group.hcl")
+  providers = {
+        vault = vault.vault
+  }
 }
 
 module "mando_entity" {
@@ -24,4 +30,7 @@ module "mando_entity" {
     ]
   group_name = "Lords-of-Mando"
   group_policies = [module.mando_group_policy.policy_name]
+  providers = {
+        vault = vault.vault
+  }
 }

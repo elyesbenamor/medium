@@ -7,4 +7,7 @@ module "vader_auth" {
   token_ttl = var.default_lease_ttl_seconds
   token_max_ttl = var.max_lease_ttl_seconds
   type = "approle"
+  providers = {
+        vault = vault.vault
+  }
 }

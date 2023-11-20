@@ -41,3 +41,7 @@ variable "set" {
     value = string
   }))
 }
+variable "values" {
+  type = list(string)
+  default = [  ]
+}
